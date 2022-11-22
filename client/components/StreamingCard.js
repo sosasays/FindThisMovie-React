@@ -1,32 +1,48 @@
 import React, { useState, useEffect } from "react";
+const API_KEY = '875ebf3e8605e8636054eb7af4e751ef';
+
 
 function StreamingCard(props) {
-    
-    // const renderStreamingProviders = (streamType) => {
-    //     const streamingProviders = [];
-    //     console.log(props.streamingData);
-    //     if (props.streamingData !== 'Not available to stream, rent, or buy in the US.') {
-    //         // Checking if available with a subscription in the US.
-    //         if (props.streamingData[streamType]) {
-    //             // Loop through subscription providers in the US.
-    //             props.streamingData[streamType].forEach((provider) => {
-    //                 const serviceProvider = provider['provider_name'];
-    //                 streamingProviders.push(<li>{serviceProvider}</li>);
-    //             });
-    //         } else streamingProviders.push(<li>Not available in the US.</li>);
-    //     }
-    //     return streamingProviders;
-    // }
+    const [streaming, setStreamingData] = useState([]);
+    useEffect(() => {
+        const renderStreamingProviders = async () => {
+            let streamingResponse;
+            let streamingData;
+            if ("first_air_date" in props.movieDetails) {
+                streamingResponse = await fetch(`https://api.themoviedb.org/3/tv/${props.id}/watch/providers?api_key=${API_KEY}`);
+                streamingData = await streamingResponse.json();
+            } else {
+                streamingResponse = await fetch(`https://api.themoviedb.org/3/movie/${props.id}/watch/providers?api_key=${API_KEY}`);
+                streamingData = await streamingResponse.json();
+            }
+            const streamingProviders = [];
+            // If is no streaming data for the given movie/TV show.
+            if (Object.keys(streamingData).length === 0 || !streamingData.results.hasOwnProperty("US") || !streamingData.results.US.hasOwnProperty("flatrate")) {
+                streamingProviders.push(<li>Not available to stream in the US.</li>);
+            } else {
+                streamingData.results.US.flatrate.forEach((company) => {
+                   streamingProviders.push(<li>{company.provider_name}</li>);
+                })
+            }
+            
+            console.log(streamingProviders)
+        
+            setStreamingData(streamingProviders);
+        }
+        renderStreamingProviders();
+    }, [])
 
-    // const streamOn = renderStreamingProviders('flatrate');
-    // const rentOn = renderStreamingProviders('rent');
-    // const buyOn = renderStreamingProviders('buy');
+    const renderStreaming = streaming.map((result) => {
+        return (
+            <li>{result}</li>
+        );
+    });
 
     return (
-      <div>
+      <div className="movieDetails">
         <ul>
             Stream On:
-            {/* {streamOn} */}
+            {renderStreaming}
         </ul>
       </div>
     );
