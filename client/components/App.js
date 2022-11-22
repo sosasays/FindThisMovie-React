@@ -11,19 +11,40 @@ function App(props) {
     // Fetch data given the provided search query.
     useEffect(() => {
     const search = async () => {
+        // Fetch the movie and TV show data.
         const movieResponse = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}`);
         const showsResponse = await fetch(`https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}`);
 
+        // Parse the JSON for movie and TV show search results.
         const movieData = await movieResponse.json();
         const validMovieData = movieData.results.filter((movie) => movie.id && movie['poster_path']);
-        
+        const streamingMovieData = await validMovieData.forEach(async (movie) => {
+            const streamingResponse = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/watch/providers?api_key=${API_KEY}`);
+            const streamingData = await streamingResponse.json();
+            if (!(streamingData.results.US)) movie.streaming = "Not available to stream, rent, or buy in the US."
+            else movie.streaming = streamingData.results.US;
+            return movie;
+        })
+    
         const showData = await showsResponse.json();
-        const validShowData = showData.results.filter((movie) => movie.id && movie['poster_path']);
+        const validShowData = showData.results.filter((show) => show.id && show['poster_path']);
+        const streamingShowsData = await validShowData.map(async (show) => {
+            const streamingResponse = await fetch(`https://api.themoviedb.org/3/tv/${show.id}/watch/providers?api_key=${API_KEY}`);
+            const streamingData = await streamingResponse.json();
+            if (!(streamingData.results.US) || !('flatrate' in streamingData.results.US)) show.streaming = "Not available to stream in the US."
+            else show.streaming = streamingData.results.US.flatrate;
+            return show;
+        })
 
-        setAPIData([...validMovieData, ...validShowData]);
+        // Combine the search results and sort it by popularity.
+        const searchResults = [...validMovieData, ...validShowData];
+        const sortedSearchResults = searchResults.sort((a, b) => b.popularity - a.popularity);
+
+        // Set the search results to the state.
+        setAPIData(sortedSearchResults);
     }
-    // Ensure the search query is valid with atleast 3 characters.
-    if(searchQuery.length > 3) search();
+    // Ensure the search query is valid with atleast 2 characters.
+    if(searchQuery.length >= 2) search();
 
     }, [searchQuery])
     
