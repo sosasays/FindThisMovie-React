@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card"
+import { v4 as uuidv4 } from 'uuid';
 
 function App(props) {
 
@@ -10,9 +11,16 @@ function App(props) {
     // Fetch data given the provided search query.
     useEffect(() => {
     const search = async () => {
-      const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}`)
-      const data = await response.json();
-        setAPIData(data.results);
+        const movieResponse = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}`);
+        const showsResponse = await fetch(`https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}`);
+
+        const movieData = await movieResponse.json();
+        const validMovieData = movieData.results.filter((movie) => movie.id && movie['poster_path']);
+        
+        const showData = await showsResponse.json();
+        const validShowData = showData.results.filter((movie) => movie.id && movie['poster_path']);
+
+        setAPIData([...validMovieData, ...validShowData]);
     }
     // Ensure the search query is valid with atleast 3 characters.
     if(searchQuery.length > 3) search();
@@ -22,7 +30,7 @@ function App(props) {
     // Render the individual cards of movie data.
     const renderMovies = APIData.map((result) => {
         return (
-            <Card posterPath={`https://image.tmdb.org/t/p/w500${result.poster_path}`} movieDetails={result} />
+            <Card key={uuidv4()} id={result.id} posterPath={`https://image.tmdb.org/t/p/w500${result.poster_path}`} movieDetails={result} />
         );
     });
 
