@@ -47,9 +47,12 @@ function App(props) {
 
     return (
       <div>
-        <h1>Find where you can binge watch your next show.</h1>
-        <input type="text" placeholder="Movie or TV Show" onChange={(e) => {setSearchQuery(e.target.value)}}/>
-        {renderMovies}
+        {/* <img src="../images/popcorn-logo.png" /> */}
+        <h1>Find where to binge watch your next show.</h1>
+        <input type="text" placeholder="Search here..." onChange={(e) => {setSearchQuery(e.target.value)}}/>
+        <div className="moviesContainer">
+            {renderMovies}
+        </div>
       </div>
     );
 };
