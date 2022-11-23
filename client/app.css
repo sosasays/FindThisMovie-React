@@ -11,6 +11,10 @@ html {
     margin: 10px;
 }
 
+.logo:hover {
+    cursor: pointer;
+}
+
 .header {
     display: flex;
     align-items: center;
@@ -23,6 +27,40 @@ html {
     margin-left: 10px;
     margin-right: 10px;
     font-size: 1.2rem;
+    text-decoration: none;
+    list-style: none;
+}
+
+.headerText:hover {
+    color: rgb(199, 199, 199);
+    text-decoration: underline;
+}
+
+.userFields {
+    width: 200px;
+    height: 25px;
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 10px;
+    caret-color: white;
+    padding-left: 10px;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+.formButton {
+    background-color: white;
+    border: 1px solid white;
+    color: black;
+    border-radius: 5px;
+    height: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
 }
 
 h1 {
@@ -38,7 +76,7 @@ h1 {
     color: white;
 }
 
-input {
+.searchBar {
     min-width: 50rem;
     min-height: 10rem;
     margin-left: 2rem;

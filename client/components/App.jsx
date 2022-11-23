@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Card from "./Card.jsx"
+import { Router, Routes, Link, Route } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+
+import Card from "./Card.jsx"
 import StreamingCard from "./StreamingCard.jsx";
+import Signup from "./Signup.jsx"
+import Login from "./Login.jsx"
 import popcornLogo from '../images/popcorn-logo-2.png';
 
 const API_KEY = '875ebf3e8605e8636054eb7af4e751ef';
@@ -49,14 +53,18 @@ function App() {
     return (
       <div>
         <div className="header">
-            <img className="logo" src={popcornLogo}/>
-            <div>
-                <a href="/signup" className="headerText">Sign Up</a>
-                <a href="/login" className="headerText">Login</a>
-            </div>
+            <a href="/"><img className="logo" src={popcornLogo}/></a>
+                <nav className="header">
+                    <li><Link className="headerText" to="/signup">Sign Up</Link></li>
+                    <li><Link className="headerText" to="/login">Login</Link></li>
+                </nav>
+                <Routes>
+                  <Route path="/signup" element={<Signup className="userFields"/>}></Route>
+                  <Route path="/login" element={<Login className="userFields"/>}></Route>
+                </Routes>
         </div>
         <h1>Find where to binge watch your next show.</h1>
-        <input type="text" placeholder="Search here..." onChange={(e) => {setSearchQuery(e.target.value)}}/>
+        <input className="searchBar" type="text" placeholder="Search here..." onChange={(e) => {setSearchQuery(e.target.value)}}/>
         <div className="moviesContainer">
             {renderMovies}
         </div>

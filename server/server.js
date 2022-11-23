@@ -28,18 +28,18 @@ app.get('/', (req, res) => {
 });
 
 // Sign Up
-app.get('/signup', (req, res) => {
-  return res.sendFile(path.resolve(__dirname, '../client/signup.html'));
-});
+// app.get('/signup', (req, res) => {
+//   return res.sendFile(path.resolve(__dirname, '../client/signup.html'));
+// });
 
 app.post('/signup', userController.createUser, (req, res) => {
   return res.redirect('/');
 });
 
 // Login
-app.get('/login', (req, res) => {
-  return res.sendFile(path.resolve(__dirname, '../client/login.html'));
-});
+// app.get('/login', (req, res) => {
+//   return res.sendFile(path.resolve(__dirname, '../client/login.html'));
+// });
 
 app.post('/login', userController.verifyUser, (req, res) => {
   return res.redirect('/');
