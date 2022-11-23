@@ -51,8 +51,8 @@ function App() {
         <div className="header">
             <img className="logo" src={popcornLogo}/>
             <div>
-                <span className="headerText">Sign Up</span>
-                <span className="headerText">Login</span>
+                <a href="/signup" className="headerText">Sign Up</a>
+                <a href="/login" className="headerText">Login</a>
             </div>
         </div>
         <h1>Find where to binge watch your next show.</h1>
