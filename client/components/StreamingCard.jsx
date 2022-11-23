@@ -24,8 +24,6 @@ function StreamingCard(props) {
                    streamingProviders.push(<li>{company.provider_name}</li>);
                 })
             }
-            
-            console.log(streamingProviders)
         
             setStreamingData(streamingProviders);
         }
@@ -33,6 +31,7 @@ function StreamingCard(props) {
     }, [])
 
     const renderStreaming = streaming.map((result) => {
+        console.log(props.movieDetails);
         return (
             <li>{result}</li>
         );
@@ -40,8 +39,19 @@ function StreamingCard(props) {
 
     return (
       <div className="movieDetails">
+        <hr/>
         <ul>
-            Stream On:
+            <span className="subHeading">Title:</span>
+            <li className="title">{props.movieDetails.name || props.movieDetails.title}</li>
+        </ul>
+        <hr/>
+        <ul>
+            <span className="subHeading">Overview:</span>
+            <li className="overview">{props.movieDetails.overview || props.movieDetails.title}</li>
+        </ul>
+        <hr/>
+        <ul>
+            <span className="subHeading">Stream On:</span>
             {renderStreaming}
         </ul>
       </div>

@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Card from "./Card"
+import Card from "./Card.jsx"
 import { v4 as uuidv4 } from 'uuid';
-import StreamingCard from "./StreamingCard";
+import StreamingCard from "./StreamingCard.jsx";
+import popcornLogo from '../images/popcorn-logo-2.png';
+
 const API_KEY = '875ebf3e8605e8636054eb7af4e751ef';
 
-function App(props) {
+function App() {
 
     const [APIData, setAPIData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     
     // Fetch data given the provided search query.
     useEffect(() => {
-    const search = async () => {
+      const search = async () => {
         // Fetch the movie and TV show data.
         const movieResponse = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}`);
         const showsResponse = await fetch(`https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}`);
@@ -29,10 +31,9 @@ function App(props) {
 
         // Set the search results to the state.
         setAPIData(sortedSearchResults);
-    }
-    // Ensure the search query is valid with atleast 2 characters.
-    if(searchQuery.length >= 2) search();
-
+      }
+      // Ensure the search query is valid with atleast 2 characters.
+      if(searchQuery.length >= 2) search();
     }, [searchQuery])
     
     // Render the individual cards of movie data.
@@ -47,7 +48,13 @@ function App(props) {
 
     return (
       <div>
-        {/* <img src="../images/popcorn-logo.png" /> */}
+        <div className="header">
+            <img className="logo" src={popcornLogo}/>
+            <div>
+                <span className="headerText">Sign Up</span>
+                <span className="headerText">Login</span>
+            </div>
+        </div>
         <h1>Find where to binge watch your next show.</h1>
         <input type="text" placeholder="Search here..." onChange={(e) => {setSearchQuery(e.target.value)}}/>
         <div className="moviesContainer">

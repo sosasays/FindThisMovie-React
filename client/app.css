@@ -6,13 +6,36 @@ html {
     scroll-behavior: smooth;
 }
 
+.logo {
+    max-width: 100px;
+    margin: 10px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 2vh;
+}
+
+.headerText {
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
 h1 {
     color: white;
     font-size: 10rem;
     overflow-wrap: break-word;
-    margin-top: 15vh;
+    margin-top: 5vh;
     margin-left: 2rem;
     line-height: 90%;
+}
+
+.title {
+    color: white;
 }
 
 input {
@@ -31,22 +54,56 @@ input {
 }
 
 ::placeholder {
-    color: white
+    color: rgb(209, 209, 209)
+}
+
+.subHeading {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+hr {
+    border-color: rgb(103, 103, 103);
 }
 
 .moviesContainer {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center space-around;
+}
+
+.movieArtwork {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .movieArtwork > img {
    border-radius: 1rem;
-   max-height: 800px;
+   height: 700px;
 }
 
 .movieDetails {
     color: white;
-    min-height: 200px;
+    height: 500px;
+    width: 500px;
+    padding: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+}
+
+.movieDetails::-webkit-scrollbar {
+  width: 12px;
+}
+
+.movieDetails::-webkit-scrollbar-track {
+  background: rgb(50, 50, 50);        /* color of the tracking area */
+}
+
+.movieDetails::-webkit-scrollbar-thumb {
+  background-color: white;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid white;  /* creates padding around scroll thumb */
 }
