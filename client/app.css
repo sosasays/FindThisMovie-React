@@ -57,8 +57,8 @@ html {
     color: black;
     border-radius: 5px;
     height: 30px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     outline: none;
     font-family: 'Poppins', sans-serif;
 }
@@ -128,7 +128,7 @@ hr {
     width: 500px;
     padding: 30px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     overflow-y: auto;
 }
 

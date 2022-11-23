@@ -30,7 +30,7 @@ userController.verifyUser = async (req, res, next) => {
     const found = await User.find({ username: username });
     // If a user is not found then an empty array is returned so redirect them to signup.
     if (found.length === 0) {
-      return res.redirect(302, '/signup')
+      return res.redirect(302, '/login')
     }
     // Compare the password matched to the user that was found from the database.
     const compare = await bcrypt.compare(password, found[0].password);

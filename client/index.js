@@ -10,7 +10,7 @@ const root = createRoot(rootDiv);
 root.render(
     <React.StrictMode>
         <BrowserRouter> 
-<App />
+            <App />
         </BrowserRouter>
     </React.StrictMode>
 );
