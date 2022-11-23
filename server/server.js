@@ -7,12 +7,10 @@ const app = express();
 // Controller for user signup and login.
 const userController = require('./controllers/userController');
 
-// Automatically parse urlencoded body content and form data from incoming requests and place it
-// in req.body
+// Automatically parse urlencoded body content and form data from incoming requests and place it in req.body
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cookieParser());
-
 
 // Connect to MongoDB with the URI.
 const mongoURI = 'mongodb+srv://grigenas:SG96236241@cluster1.tdyenht.mongodb.net/?retryWrites=true&w=majority';
